@@ -6,12 +6,16 @@
 <title>Chasetown Saints</title>
 </head>
 <body>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 46'%3E%3Cpath d='M20 1 L38 7 V21 C38 33 30 42 20 45 C10 42 2 33 2 21 V7 Z' fill='%2316325C' stroke='%23E3A335' stroke-width='2'/%3E%3Ctext x='20' y='30' font-family='Georgia' font-weight='800' font-size='16' fill='%23F8F4E8' text-anchor='middle'%3ECS%3C/text%3E%3C/svg%3E">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Inter:wght@400;500;600;700&display=swap');
 
 .site{background:#F8F4E8;min-height:100%;font-family:'Inter',Arial,sans-serif;color:#1C1C1C;}
-.site-header{padding:28px 32px 20px;border-bottom:3px solid #16325C;display:flex;justify-content:space-between;align-items:flex-start;}
-.site-title{font-family:'Playfair Display',serif;font-size:30px;font-weight:800;color:#16325C;cursor:pointer;letter-spacing:.01em;display:inline-block;}
+.site-header{padding:24px 32px 20px;border-bottom:3px solid #16325C;display:flex;justify-content:space-between;align-items:flex-start;}
+.brand-row{display:flex;align-items:center;gap:12px;cursor:pointer;}
+.crest{flex-shrink:0;width:44px;height:50px;}
+.brand-text{display:flex;flex-direction:column;}
+.site-title{font-family:'Playfair Display',serif;font-size:26px;font-weight:800;color:#16325C;cursor:pointer;letter-spacing:.01em;display:inline-block;line-height:1.05;}
 .site-sub{font-size:11px;color:#8A8370;text-transform:uppercase;letter-spacing:.14em;margin-top:4px;}
 
 .admin-btn{background:#16325C;color:#F8F4E8;border:none;border-radius:4px;padding:9px 16px;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;font-family:'Inter',sans-serif;}
@@ -64,6 +68,8 @@
 .page{display:none;padding:24px 32px 48px;}
 .page.active{display:block;}
 .page-title{font-family:'Playfair Display',serif;font-size:26px;font-weight:800;color:#16325C;margin-bottom:24px;}
+.back-btn{display:inline-flex;align-items:center;gap:5px;background:none;border:none;color:#8A2B2B;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;cursor:pointer;padding:0;margin-bottom:14px;}
+.back-btn:hover{color:#16325C;}
 
 .group{margin-bottom:26px;}
 .group-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:#8A2B2B;margin-bottom:10px;}
@@ -164,14 +170,24 @@
 <div class="site" id="site">
 
   <div class="site-header">
-    <div>
-      <div class="site-title" id="homeLink">Chasetown Saints</div>
-      <div class="site-sub">Football Club</div>
+    <div class="brand-row" id="homeLink">
+      <svg class="crest" viewBox="0 0 40 46" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20 1 L38 7 V21 C38 33 30 42 20 45 C10 42 2 33 2 21 V7 Z" fill="#16325C" stroke="#E3A335" stroke-width="1.5"/>
+        <circle cx="20" cy="14" r="6" fill="#F8F4E8"/>
+        <path d="M20 9 L23 12 L22 16 L18 16 L17 12 Z" fill="#16325C"/>
+        <path d="M20 9 L20 7.5M23 12 L25 10.5M22 16 L23.5 18M18 16 L16.5 18M17 12 L15 10.5" stroke="#16325C" stroke-width="0.8" fill="none"/>
+        <line x1="9" y1="23" x2="31" y2="23" stroke="#E3A335" stroke-width="1"/>
+        <text x="20" y="36" font-family="'Playfair Display',Georgia,serif" font-weight="800" font-size="13" fill="#F8F4E8" text-anchor="middle">CS</text>
+      </svg>
+      <div class="brand-text">
+        <div class="site-title">Chasetown Saints</div>
+        <div class="site-sub">Football Club</div>
+      </div>
     </div>
     <div class="header-actions">
-      <a class="cal-btn" href="https://www.google.com/maps" target="_blank" rel="noopener" title="Google Maps">
+      <button class="cal-btn" id="mapBtn" title="Locations Map">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M9 20l-6-2V4l6 2 6-2 6 2v14l-6-2-6 2z"/><path d="M9 6v14M15 4v14"/></svg>
-      </a>
+      </button>
       <button class="cal-btn" id="calBtn" title="Calendar">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
       </button>
@@ -195,40 +211,11 @@
   </div>
 
   <div class="page" id="page-team">
+    <button class="back-btn" data-back="1">&lsaquo; Back</button>
     <div class="page-title">Team</div>
+    <button class="add-fixture-btn admin-only" id="addPlayerBtn" style="display:none;">+ Add player</button>
 
-    <div class="group">
-      <div class="group-label">Goalkeeper</div>
-      <div class="player-row"><span class="player-name">Oscar</span><span class="player-pos">GK</span></div>
-    </div>
-
-    <div class="group">
-      <div class="group-label">Defence</div>
-      <div class="player-row"><span class="player-name">Albie</span><span class="player-pos">RB</span></div>
-      <div class="player-row"><span class="player-name">Edward</span><span class="player-pos">CB</span></div>
-      <div class="player-row"><span class="player-name">Reuben</span><span class="player-pos">LB</span></div>
-    </div>
-
-    <div class="group">
-      <div class="group-label">Midfield</div>
-      <div class="player-row"><span class="player-name">Dan</span><span class="player-pos">CDM</span></div>
-      <div class="player-row"><span class="player-name">Leny</span><span class="player-pos">CM</span></div>
-      <div class="player-row"><span class="player-name">Brody</span><span class="player-pos">CM</span></div>
-    </div>
-
-    <div class="group">
-      <div class="group-label">Attack</div>
-      <div class="player-row"><span class="player-name">Sam</span><span class="player-pos">RW</span></div>
-      <div class="player-row"><span class="player-name">Chase</span><span class="player-pos">ST</span></div>
-      <div class="player-row"><span class="player-name">Aden</span><span class="player-pos">LW</span></div>
-    </div>
-
-    <div class="group">
-      <div class="group-label">Bench</div>
-      <div class="player-row"><span class="player-name">Ted</span><span class="player-pos">SUB</span></div>
-      <div class="player-row"><span class="player-name">Tyler</span><span class="player-pos">SUB</span></div>
-      <div class="player-row"><span class="player-name">Leo</span><span class="player-pos">SUB</span></div>
-    </div>
+    <div id="playerGroups">Loading squad…</div>
 
     <div class="group">
       <div class="group-label">Squad — 3-1-2-3</div>
@@ -236,36 +223,28 @@
         <div class="pitch">
           <div class="box-top"></div>
           <div class="box-bottom"></div>
-
-          <div class="pmark" style="top:14%;left:20%;"><div class="dot">RW</div><div class="pname">Sam</div></div>
-          <div class="pmark" style="top:14%;left:50%;"><div class="dot">ST</div><div class="pname">Chase</div></div>
-          <div class="pmark" style="top:14%;left:80%;"><div class="dot">LW</div><div class="pname">Aden</div></div>
-
-          <div class="pmark" style="top:34%;left:35%;"><div class="dot">CM</div><div class="pname">Leny</div></div>
-          <div class="pmark" style="top:34%;left:65%;"><div class="dot">CM</div><div class="pname">Brody</div></div>
-
-          <div class="pmark" style="top:52%;left:50%;"><div class="dot">CDM</div><div class="pname">Dan</div></div>
-
-          <div class="pmark" style="top:70%;left:20%;"><div class="dot">RB</div><div class="pname">Albie</div></div>
-          <div class="pmark" style="top:70%;left:50%;"><div class="dot">CB</div><div class="pname">Edward</div></div>
-          <div class="pmark" style="top:70%;left:80%;"><div class="dot">LB</div><div class="pname">Reuben</div></div>
-
-          <div class="pmark" style="top:90%;left:50%;"><div class="dot">GK</div><div class="pname">Oscar</div></div>
+          <div id="formationSlots"></div>
         </div>
       </div>
     </div>
   </div>
 
   <div class="page" id="page-standings">
+    <button class="back-btn" data-back="1">&lsaquo; Back</button>
     <div class="page-title">Standings</div>
-    <div class="season-label">2026/27 Season</div>
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+      <div class="season-label" id="seasonLabelText" style="margin-bottom:0;">2026/27 Season</div>
+      <span id="seasonLabelEditBtn" style="display:none;cursor:pointer;color:#4169E1;font-size:11px;font-weight:700;text-transform:uppercase;">Edit</span>
+    </div>
     <div class="table-scroll">
-      <table class="league-table" id="standingsTable"></table>
+      <table class="league-table" id="standingsTable"><tr><td style="padding:14px;text-align:center;color:#8A8370;">Loading standings…</td></tr></table>
     </div>
     <button class="add-team-btn" id="addTeamBtn" style="display:none;">+ Add team</button>
+    <button class="finish-btn admin-only" id="newSeasonBtn" style="display:none;margin-top:24px;">Start New Season</button>
   </div>
 
   <div class="page" id="page-fixtures">
+    <button class="back-btn" data-back="1">&lsaquo; Back</button>
     <div class="page-title">Fixtures</div>
 
     <div class="kit-box">
@@ -276,10 +255,11 @@
 
     <button class="add-fixture-btn admin-only" id="addFixtureBtn" style="display:none;">+ Add fixture</button>
 
-    <div id="fixtureList"></div>
+    <div id="fixtureList" style="font-size:13px;color:#8A8370;">Loading fixtures…</div>
   </div>
 
   <div class="page" id="page-statistics">
+    <button class="back-btn" data-back="1">&lsaquo; Back</button>
     <div class="page-title">Statistics</div>
 
     <div id="finishedNote" style="display:none;" class="finished-note">Season finished — final totals</div>
@@ -300,7 +280,7 @@
     <button class="finish-btn admin-only" id="finishSeasonBtn" style="display:none;">Finish Season</button>
 
     <div class="table-scroll">
-      <table class="tally-table" id="tallyTable"></table>
+      <table class="tally-table" id="tallyTable"><tr><td style="padding:14px;text-align:center;color:#8A8370;">Loading stats…</td></tr></table>
     </div>
 
     <div class="chart-block" id="chartBlock" style="display:none;">
@@ -314,6 +294,7 @@
   </div>
 
   <div class="page" id="page-presentation">
+    <button class="back-btn" data-back="1">&lsaquo; Back</button>
     <div class="page-title">Presentation Day</div>
     <button class="fx-edit-btn admin-only" id="presEditBtn" style="display:none;margin-bottom:16px;">Edit details</button>
 
@@ -353,6 +334,16 @@
   </div>
 </div>
 
+<div class="cal-overlay" id="mapOverlay">
+  <div class="cal-modal" style="padding:12px;">
+    <div class="cal-close-row" style="padding:0 6px;">
+      <button class="cal-close" id="mapClose">&times;</button>
+    </div>
+    <div id="locMap" style="width:100%;height:360px;border-radius:6px;"></div>
+    <div class="cal-hint">Club locations around Staffordshire</div>
+  </div>
+</div>
+
 <div class="overlay" id="genOverlay">
   <div class="fx-form-modal" id="genModalContent"></div>
 </div>
@@ -361,6 +352,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/12.15.0/firebase-app-compat.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/12.15.0/firebase-firestore-compat.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/12.15.0/firebase-auth-compat.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 
 <script>
 (function(){
@@ -373,6 +366,9 @@
   document.getElementById('homeLink').addEventListener('click', function(){ showPage('home'); });
   document.querySelectorAll('.nav-item').forEach(function(item){
     item.addEventListener('click', function(){ showPage(item.dataset.page); });
+  });
+  document.querySelectorAll('.back-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){ showPage('home'); });
   });
 
   var isAdmin = false;
@@ -446,7 +442,162 @@
     if(e.target.id === 'calOverlay') document.getElementById('calOverlay').classList.remove('open');
   });
 
-  var SQUAD = ['Oscar','Albie','Edward','Reuben','Dan','Leny','Brody','Sam','Chase','Aden','Ted','Tyler','Leo'];
+  var CLUB_LOCATIONS = [
+    {name:'Shobnall Leisure Centre', lat:52.8070, lng:-1.6530},
+    {name:'Whittington Barracks', lat:52.6612, lng:-1.7752},
+    {name:"St George's Park", lat:52.8090, lng:-1.7560},
+    {name:'Beacon Park', lat:52.6836, lng:-1.8371}
+  ];
+  var locMap = null;
+  function ensureLocMap(){
+    if(!locMap){
+      locMap = L.map('locMap').setView([52.740, -1.755], 11);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors',
+        maxZoom: 18
+      }).addTo(locMap);
+      CLUB_LOCATIONS.forEach(function(loc){
+        L.circleMarker([loc.lat, loc.lng], {
+          radius: 7,
+          fillColor: '#4169E1',
+          fillOpacity: 1,
+          color: '#F8F4E8',
+          weight: 2
+        }).addTo(locMap).bindPopup('<b>'+loc.name+'</b>');
+      });
+    } else {
+      locMap.invalidateSize();
+    }
+  }
+  document.getElementById('mapBtn').addEventListener('click', function(){
+    document.getElementById('mapOverlay').classList.add('open');
+    setTimeout(ensureLocMap, 50);
+  });
+  document.getElementById('mapClose').addEventListener('click', function(){
+    document.getElementById('mapOverlay').classList.remove('open');
+  });
+  document.getElementById('mapOverlay').addEventListener('click', function(e){
+    if(e.target.id === 'mapOverlay') document.getElementById('mapOverlay').classList.remove('open');
+  });
+
+  var DEFAULT_PLAYERS = [
+    {id:'p1', name:'Oscar', squadNumber:1, position:'GK'},
+    {id:'p2', name:'Albie', squadNumber:2, position:'RB'},
+    {id:'p3', name:'Edward', squadNumber:4, position:'CB'},
+    {id:'p4', name:'Reuben', squadNumber:3, position:'LB'},
+    {id:'p5', name:'Dan', squadNumber:6, position:'CDM'},
+    {id:'p6', name:'Leny', squadNumber:8, position:'CM'},
+    {id:'p7', name:'Brody', squadNumber:10, position:'CM'},
+    {id:'p8', name:'Sam', squadNumber:7, position:'RW'},
+    {id:'p9', name:'Chase', squadNumber:9, position:'ST'},
+    {id:'p10', name:'Aden', squadNumber:11, position:'LW'},
+    {id:'p11', name:'Ted', squadNumber:12, position:'SUB'},
+    {id:'p12', name:'Tyler', squadNumber:14, position:'SUB'},
+    {id:'p13', name:'Leo', squadNumber:15, position:'SUB'}
+  ];
+  var POSITION_META = {
+    GK:'Goalkeeper', RB:'Defence', CB:'Defence', LB:'Defence',
+    CDM:'Midfield', CM:'Midfield',
+    RW:'Attack', ST:'Attack', LW:'Attack',
+    SUB:'Bench'
+  };
+  var GROUP_ORDER = ['Goalkeeper','Defence','Midfield','Attack','Bench'];
+  var POSITION_OPTIONS = ['GK','RB','CB','LB','CDM','CM','RW','ST','LW','SUB'];
+  var FORMATION_SLOTS = [
+    {code:'RW', top:14, left:20}, {code:'ST', top:14, left:50}, {code:'LW', top:14, left:80},
+    {code:'CM', top:34, left:35}, {code:'CM', top:34, left:65},
+    {code:'CDM', top:52, left:50},
+    {code:'RB', top:70, left:20}, {code:'CB', top:70, left:50}, {code:'LB', top:70, left:80},
+    {code:'GK', top:90, left:50}
+  ];
+
+  var players = [];
+  async function loadPlayers(){
+    try{ var r = await db.collection('siteData').doc('players').get(); players = r.exists ? r.data().value : DEFAULT_PLAYERS; }
+    catch(e){ players = DEFAULT_PLAYERS; }
+    syncSquadFromPlayers();
+    renderPlayers();
+    renderFormation();
+    reconcileStatsWithSquad();
+  }
+  async function savePlayers(){
+    try{ await db.collection('siteData').doc('players').set({ value: players }); }
+    catch(e){ console.error('save failed', e); }
+  }
+  function refreshPlayerUI(){
+    syncSquadFromPlayers();
+    renderPlayers();
+    renderFormation();
+    reconcileStatsWithSquad();
+  }
+  function renderPlayers(){
+    var groups = {};
+    GROUP_ORDER.forEach(function(g){ groups[g] = []; });
+    players.slice().sort(function(a,b){ return (a.squadNumber||99)-(b.squadNumber||99); }).forEach(function(p){
+      var g = POSITION_META[p.position] || 'Bench';
+      groups[g].push(p);
+    });
+    var html = '';
+    GROUP_ORDER.forEach(function(g){
+      if(!groups[g].length) return;
+      html += '<div class="group"><div class="group-label">'+g+'</div>';
+      groups[g].forEach(function(p){
+        html += '<div class="player-row"><span class="player-name">'+p.name+'</span><span class="player-pos">'+p.position
+          + (isAdmin ? ' <span data-edit="'+p.id+'" style="cursor:pointer;color:#4169E1;margin-left:10px;font-weight:600;">Edit</span><span data-del="'+p.id+'" style="cursor:pointer;color:#8A2B2B;margin-left:8px;font-weight:700;">&times;</span>' : '')
+          + '</span></div>';
+      });
+      html += '</div>';
+    });
+    var el = document.getElementById('playerGroups');
+    el.innerHTML = html || '<div class="empty-note">No players added yet</div>';
+    el.querySelectorAll('[data-edit]').forEach(function(b){ b.addEventListener('click', function(){ openPlayerForm(b.dataset.edit); }); });
+    el.querySelectorAll('[data-del]').forEach(function(b){ b.addEventListener('click', function(){
+      if(!confirm('Remove this player from the squad?')) return;
+      players = players.filter(function(p){ return p.id !== b.dataset.del; });
+      savePlayers();
+      refreshPlayerUI();
+    }); });
+  }
+  function renderFormation(){
+    var used = {};
+    var html = FORMATION_SLOTS.map(function(slot){
+      var p = players.find(function(pl){ return pl.position === slot.code && !used[pl.id]; });
+      if(p) used[p.id] = true;
+      return '<div class="pmark" style="top:'+slot.top+'%;left:'+slot.left+'%;"><div class="dot">'+slot.code+'</div><div class="pname">'+(p?p.name:'—')+'</div></div>';
+    }).join('');
+    document.getElementById('formationSlots').innerHTML = html;
+  }
+  function openPlayerForm(id){
+    var existing = id ? players.find(function(p){ return p.id === id; }) : null;
+    var p = existing || {id: uidFx(), name:'', squadNumber:'', position:'GK'};
+    openGenModal(
+      '<h3>'+(existing?'Edit player':'Add player')+'</h3>'
+      + '<label>Name</label><input type="text" id="plNameInput" value="'+p.name+'">'
+      + '<div class="fx-row"><div><label>Squad number</label><input type="number" id="plNumInput" value="'+p.squadNumber+'"></div><div><label>Position</label><select id="plPosSelect">'
+      + POSITION_OPTIONS.map(function(o){ return '<option'+(p.position===o?' selected':'')+'>'+o+'</option>'; }).join('')
+      + '</select></div></div>'
+      + '<button id="plSaveBtn" style="'+SAVE_BTN_STYLE+'">Save player</button>'
+      + '<button id="plCancelBtn" style="'+CANCEL_BTN_STYLE+'">Cancel</button>'
+    );
+    document.getElementById('plCancelBtn').addEventListener('click', closeGenModal);
+    document.getElementById('plSaveBtn').addEventListener('click', function(){
+      p.name = document.getElementById('plNameInput').value.trim() || 'Unnamed';
+      p.squadNumber = document.getElementById('plNumInput').value;
+      p.position = document.getElementById('plPosSelect').value;
+      if(!existing) players.push(p);
+      savePlayers();
+      closeGenModal();
+      refreshPlayerUI();
+    });
+  }
+  document.getElementById('addPlayerBtn').addEventListener('click', function(){ openPlayerForm(); });
+
+  var SQUAD = [];
+  function syncSquadFromPlayers(){
+    SQUAD = players.map(function(p){ return p.name; });
+    var sel = document.getElementById('statPlayer');
+    sel.innerHTML = SQUAD.map(function(n){ return '<option value="'+n+'">'+n+'</option>'; }).join('');
+  }
   var statistics = { status: 'open', totals: {} };
 
   function blankTotals(){
@@ -454,16 +605,18 @@
     SQUAD.forEach(function(name){ t[name] = {goals:0, assists:0, cleanSheets:0, fouls:0, yellow:0, red:0}; });
     return t;
   }
+  function reconcileStatsWithSquad(){
+    SQUAD.forEach(function(name){ if(!statistics.totals[name]) statistics.totals[name] = {goals:0,assists:0,cleanSheets:0,fouls:0,yellow:0,red:0}; });
+    renderStatistics();
+    renderPresentation();
+  }
 
   async function loadStatistics(){
     try{
       var r = await db.collection('siteData').doc('statistics').get();
       statistics = r.exists ? r.data().value : { status:'open', totals: blankTotals() };
     }catch(e){ statistics = { status:'open', totals: blankTotals() }; }
-    SQUAD.forEach(function(name){ if(!statistics.totals[name]) statistics.totals[name] = {goals:0,assists:0,cleanSheets:0,fouls:0,yellow:0,red:0}; });
-    var sel = document.getElementById('statPlayer');
-    sel.innerHTML = SQUAD.map(function(n){ return '<option value="'+n+'">'+n+'</option>'; }).join('');
-    renderStatistics();
+    reconcileStatsWithSquad();
   }
   async function saveStatistics(){
     try{ await db.collection('siteData').doc('statistics').set({ value: statistics }); }
@@ -726,6 +879,59 @@
     });
   });
 
+  var seasonLabel = '2026/27 Season';
+  async function loadSeason(){
+    try{ var r = await db.collection('siteData').doc('season').get(); if(r.exists) seasonLabel = r.data().value; }
+    catch(e){}
+    document.getElementById('seasonLabelText').textContent = seasonLabel;
+  }
+  async function saveSeason(){
+    try{ await db.collection('siteData').doc('season').set({ value: seasonLabel }); }
+    catch(e){ console.error('save failed', e); }
+  }
+  document.getElementById('seasonLabelEditBtn').addEventListener('click', function(){
+    openGenModal(
+      '<h3>Edit Season Label</h3>'
+      + '<label>Season</label><input type="text" id="seasonInput" value="'+seasonLabel+'">'
+      + '<button id="seasonSaveBtn" style="'+SAVE_BTN_STYLE+'">Save</button>'
+      + '<button id="seasonCancelBtn" style="'+CANCEL_BTN_STYLE+'">Cancel</button>'
+    );
+    document.getElementById('seasonCancelBtn').addEventListener('click', closeGenModal);
+    document.getElementById('seasonSaveBtn').addEventListener('click', function(){
+      seasonLabel = document.getElementById('seasonInput').value.trim() || seasonLabel;
+      document.getElementById('seasonLabelText').textContent = seasonLabel;
+      saveSeason();
+      closeGenModal();
+    });
+  });
+
+  document.getElementById('newSeasonBtn').addEventListener('click', function(){
+    openGenModal(
+      '<h3>Start New Season</h3>'
+      + '<label>New season label</label><input type="text" id="newSeasonInput" placeholder="e.g. 2027/28 Season">'
+      + '<div style="font-size:12px;color:#8A2B2B;line-height:1.5;margin:4px 0 10px;">This clears the current Standings table and Fixtures list, and resets Statistics back to zero for everyone. Presentation Day details and the Notice Board are left alone. This cannot be undone.</div>'
+      + '<button id="newSeasonSaveBtn" style="'+SAVE_BTN_STYLE+'">Start new season</button>'
+      + '<button id="newSeasonCancelBtn" style="'+CANCEL_BTN_STYLE+'">Cancel</button>'
+    );
+    document.getElementById('newSeasonCancelBtn').addEventListener('click', closeGenModal);
+    document.getElementById('newSeasonSaveBtn').addEventListener('click', async function(){
+      var label = document.getElementById('newSeasonInput').value.trim();
+      if(!confirm('Really start a new season? Standings, fixtures, and statistics will be cleared for everyone.')) return;
+      if(label){ seasonLabel = label; document.getElementById('seasonLabelText').textContent = seasonLabel; saveSeason(); }
+      standings = [];
+      fixtures = [];
+      statistics = { status:'open', totals: blankTotals() };
+      await saveStandings();
+      await saveFixtures();
+      await saveStatistics();
+      renderStandings();
+      renderFixtures();
+      renderStatistics();
+      renderPresentation();
+      closeGenModal();
+    });
+  });
+
   async function loadStandings(){
     try{
       var r = await db.collection('siteData').doc('standings').get();
@@ -795,10 +1001,14 @@
     document.getElementById('kitEditBtn').style.display = isAdmin ? 'inline-block' : 'none';
     document.getElementById('addFixtureBtn').style.display = isAdmin ? 'inline-block' : 'none';
     document.getElementById('presEditBtn').style.display = isAdmin ? 'inline-block' : 'none';
+    document.getElementById('addPlayerBtn').style.display = isAdmin ? 'inline-block' : 'none';
+    document.getElementById('newSeasonBtn').style.display = isAdmin ? 'inline-block' : 'none';
+    document.getElementById('seasonLabelEditBtn').style.display = isAdmin ? 'inline-block' : 'none';
     renderStandings();
     renderStatistics();
     renderFixtures();
     renderPresentation();
+    renderPlayers();
   }
 
   adminBtn.addEventListener('click', function(){
@@ -846,7 +1056,10 @@
   loadKit();
   loadFixtures();
   loadPresentation();
+  loadPlayers();
+  loadSeason();
 })();
 </script>
+
 </body>
 </html>
