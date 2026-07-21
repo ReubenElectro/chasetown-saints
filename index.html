@@ -305,7 +305,7 @@
 
     <div class="kit-box">
       <div class="kb-label">Matchday Checklist</div>
-      <div class="kb-body" id="kitBody">Home shirt & shorts&#10;Away shirt (in case of a clash)&#10;Shin pads&#10;Boots + trainers&#10;Water bottle&#10;Warm layer</div>
+      <div class="kb-body" id="kitBody">Home shirt &amp; shorts&#10;Away shirt (in case of a clash)&#10;Shin pads&#10;Boots + trainers&#10;Water bottle&#10;Warm layer</div>
       <button class="fx-edit-btn admin-only" id="kitEditBtn" style="display:none;margin-top:10px;">Edit checklist</button>
     </div>
 
@@ -774,7 +774,7 @@
       + '<div class="stat-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;">'
       + ['apps','goals','assists','cleanSheets'].map(function(k){
           var lbl = {apps:'Apps',goals:'Goals',assists:'Assists',cleanSheets:'Clean Sheets'}[k];
-          return '<div class="stat-card" style="background:#fff;border:1px solid #E2DBC5;border-radius:10px;padding:10px 4px;text-align:center;"><div style="font-family:\'Playfair Display\',serif;font-weight:800;font-size:20px;color:#16325C;">'+(s[k]||0)+'</div><div style="font-size:9px;color:#8A8370;text-transform:uppercase;">'+lbl+'</div></div>';
+          return '<div class="stat-card" style="background:#fff;border:1px solid #E2DBC5;border-radius:10px;padding:10px 4px;text-align:center;"><div style="font-family:'Playfair Display',serif;font-weight:800;font-size:20px;color:#16325C;">'+(s[k]||0)+'</div><div style="font-size:9px;color:#8A8370;text-transform:uppercase;">'+lbl+'</div></div>';
         }).join('')
       + '</div>'
     );
@@ -784,7 +784,7 @@
     var html = FORMATION_SLOTS.map(function(slot){
       var p = players.find(function(pl){ return pl.position === slot.code && !used[pl.id]; });
       if(p) used[p.id] = true;
-      return '<div class="pmark" style="top:'+slot.top+'%;left:'+slot.left+'%;"><div class="dot">'+slot.code+'</div><div class="pname">'+(p?p.name:'\u2014')+'</div></div>';
+      return '<div class="pmark" style="top:'+slot.top+'%;left:'+slot.left+'%;"><div class="dot">'+slot.code+'</div><div class="pname">'+(p?p.name:'—')+'</div></div>';
     }).join('');
     document.getElementById('formationSlots').innerHTML = html;
   }
@@ -975,7 +975,12 @@
   });
 
   /* ---------- kit checklist ---------- */
-  var kitChecklist = 'Home shirt & shorts\nAway shirt (in case of a clash)\nShin pads\nBoots + trainers\nWater bottle\nWarm layer';
+  var kitChecklist = 'Home shirt & shorts
+Away shirt (in case of a clash)
+Shin pads
+Boots + trainers
+Water bottle
+Warm layer';
   async function loadKit(){
     try{ var r = await db.collection('siteData').doc('kit').get(); if(r.exists) kitChecklist = r.data().value; }
     catch(e){}
@@ -1039,11 +1044,20 @@
     var uid = fx.id + '@chasetownsaints';
     var summary = 'Chasetown Saints vs ' + fx.opponent;
     var loc = fx.address || '';
-    var ics = 'BEGIN:VCALENDAR\nVERSION:2.0\nBEGIN:VEVENT\nUID:'+uid+'\nDTSTAMP:'+dt+'\nDTSTART:'+dt+'\nSUMMARY:'+summary+'\nLOCATION:'+loc+'\nEND:VEVENT\nEND:VCALENDAR';
+    var ics = 'BEGIN:VCALENDAR
+VERSION:2.0
+BEGIN:VEVENT
+UID:'+uid+'
+DTSTAMP:'+dt+'
+DTSTART:'+dt+'
+SUMMARY:'+summary+'
+LOCATION:'+loc+'
+END:VEVENT
+END:VCALENDAR';
     var blob = new Blob([ics], {type:'text/calendar'});
     var url = URL.createObjectURL(blob);
     var a = document.createElement('a');
-    a.href = url; a.download = 'vs-'+fx.opponent.replace(/\s+/g,'-')+'.ics';
+    a.href = url; a.download = 'vs-'+fx.opponent.replace(/s+/g,'-')+'.ics';
     document.body.appendChild(a); a.click(); document.body.removeChild(a);
     setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
   }
@@ -1298,9 +1312,9 @@
     el.innerHTML = SQUAD.map(function(name){
       var v = availability[name] || '';
       return '<div class="avail-row"><span class="avail-name">'+name+'</span><div class="avail-btns">'
-        + '<button class="avail-btn'+(v==='available'?' active-yes':'')+'" data-name="'+name+'" data-val="available">\u2713</button>'
+        + '<button class="avail-btn'+(v==='available'?' active-yes':'')+'" data-name="'+name+'" data-val="available">✓</button>'
         + '<button class="avail-btn'+(v==='maybe'?' active-maybe':'')+'" data-name="'+name+'" data-val="maybe">?</button>'
-        + '<button class="avail-btn'+(v==='unavailable'?' active-no':'')+'" data-name="'+name+'" data-val="unavailable">\u2717</button>'
+        + '<button class="avail-btn'+(v==='unavailable'?' active-no':'')+'" data-name="'+name+'" data-val="unavailable">✗</button>'
         + '</div></div>';
     }).join('') + '<div class="avail-summary">'+yes+' available &middot; '+maybe+' maybe &middot; '+no+' unavailable</div>';
     el.querySelectorAll('[data-val]').forEach(function(b){
@@ -1367,7 +1381,8 @@
       slotsEl.querySelectorAll('[data-slot]').forEach(function(el){
         el.addEventListener('click', function(){
           var i = el.dataset.slot;
-          var choice = prompt('Type a player name for this position:\n' + players.map(function(p){return p.name;}).join(', '));
+          var choice = prompt('Type a player name for this position:
+' + players.map(function(p){return p.name;}).join(', '));
           if(choice === null) return;
           var match = players.find(function(p){ return p.name.toLowerCase() === choice.trim().toLowerCase(); });
           if(!match){ alert('No player found with that name.'); return; }
@@ -1401,7 +1416,11 @@
       });
       var assignedIds = Object.values(teamSelection.assignments || {});
       var bench = players.filter(function(p){ return assignedIds.indexOf(p.id) === -1; }).map(function(p){ return p.name; });
-      var text = 'Formation ' + teamSelection.formation + '\n' + lines.join('\n') + '\n\nBench: ' + (bench.join(', ') || 'none');
+      var text = 'Formation ' + teamSelection.formation + '
+' + lines.join('
+') + '
+
+Bench: ' + (bench.join(', ') || 'none');
       openGenModal('<h3>Squad List</h3><textarea style="min-height:200px;" readonly>'+text+'</textarea><button id="closeSquadListBtn" style="'+SAVE_BTN_STYLE+'">Close</button>');
       document.getElementById('closeSquadListBtn').addEventListener('click', closeGenModal);
     });
@@ -1448,7 +1467,7 @@
       + '<label>Time</label><input type="text" id="pTime" value="'+presentation.time+'">'
       + '<label>Dress code</label><input type="text" id="pDress" value="'+presentation.dressCode+'">'
       + '<label>Most Improved award</label><input type="text" id="pImproved" value="'+presentation.mostImproved+'">'
-      + '<label>Managers\' Award</label><input type="text" id="pManagers" value="'+presentation.managersAward+'">'
+      + '<label>Managers' Award</label><input type="text" id="pManagers" value="'+presentation.managersAward+'">'
       + '<button id="pSaveBtn" style="'+SAVE_BTN_STYLE+'">Save</button>'
       + '<button id="pCancelBtn" style="'+CANCEL_BTN_STYLE+'">Cancel</button>'
     );
@@ -1626,7 +1645,7 @@
   function attemptLogin(){
     if(codeInput.value === ADMIN_CODE){
       isAdmin = true;
-      adminBtn.textContent = 'Admin \u2713';
+      adminBtn.textContent = 'Admin ✓';
       adminBtn.classList.add('on');
       overlay.classList.remove('open');
       updateAdminUI();
